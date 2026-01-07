@@ -1,0 +1,518 @@
+/* --- Theme & Color Variables --- */
+:root {
+    /* --- Dark Mode (Default) - Spotify Inspired --- */
+    --bg-primary: #121212;
+    --bg-secondary: #1E1E1E;
+    --bg-tertiary: #282828;
+    --bg-hover: #333333;
+    --text-primary: #E0E0E0;
+    --text-secondary: #B3B3B3;
+    --primary-accent: #1DB954;
+    /* Spotify Green */
+    --primary-accent-hover: #1ED760;
+
+    /* --- Shared Variables --- */
+    --success-color: #22c55e;
+    --danger-color: #ef4444;
+    --warning-color: #f59e0b;
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --transition-fast: all 0.2s ease-out;
+    --transition-theme: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme="light"] {
+    /* --- Light Mode - Notion Inspired --- */
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F7F7F7;
+    --bg-tertiary: #EAEAEA;
+    --bg-hover: #E0E0E0;
+    --text-primary: #333333;
+    --text-secondary: #555555;
+    --primary-accent: #3b82f6;
+    /* Notion Blue */
+    --primary-accent-hover: #60a5fa;
+}
+
+/* --- Base Styles --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    background-color: var(--bg-primary);
+    transition: var(--transition-theme);
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    width: 380px;
+    padding: 1.25rem;
+    transition: var(--transition-theme);
+}
+
+/* --- Header & Theme Toggle --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+#themeSwitch {
+    display: none;
+    /* Hide the default checkbox */
+}
+
+.toggle-label {
+    display: block;
+    position: relative;
+    width: 50px;
+    height: 26px;
+    background-color: var(--bg-tertiary);
+    border-radius: 13px;
+    cursor: pointer;
+    transition: var(--transition-theme);
+}
+
+.toggle-handle {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--bg-primary);
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    transform-style: preserve-3d;
+}
+
+.toggle-handle span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    backface-visibility: hidden;
+}
+
+.sun-icon {
+    transform: rotateY(0deg);
+}
+
+.moon-icon {
+    transform: rotateY(180deg);
+}
+
+/* Toggle "On" (Light Mode) State */
+#themeSwitch:checked+.toggle-label {
+    background-color: var(--primary-accent);
+}
+
+#themeSwitch:checked+.toggle-label .toggle-handle {
+    transform: translateX(24px) rotateY(180deg);
+}
+
+/* --- Password Display --- */
+.password-display-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin-bottom: 0.75rem;
+    transition: var(--transition-theme);
+}
+
+#passwordDisplay {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.2rem;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    flex-grow: 1;
+    padding: 0.5rem;
+    letter-spacing: 0.5px;
+}
+
+.icon-button {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: var(--transition-fast);
+}
+
+.icon-button:hover {
+    color: var(--text-primary);
+    background-color: var(--bg-hover);
+}
+
+.icon-button:active {
+    transform: scale(0.92);
+}
+
+#copyMessage {
+    /* Styles unchanged */
+    position: absolute;
+    right: 4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--success-color);
+    color: #121212;
+    /* Always dark text for high contrast */
+    font-weight: 500;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    pointer-events: none;
+}
+
+#copyMessage.show {
+    opacity: 1;
+    transform: translateY(-50%) translateX(-0.5rem);
+}
+
+/* --- Strength Indicator --- */
+.strength-indicator {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.strength-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+#crackTime {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+#timeValue {
+    font-weight: 600;
+    color: var(--primary-accent);
+}
+
+#strengthBar {
+    height: 6px;
+    flex-grow: 1;
+    background-color: var(--bg-tertiary);
+    border-radius: 3px;
+    transition: background-color 0.3s ease, var(--transition-theme);
+}
+
+/* Strength levels (styles unchanged) */
+#strengthBar.weak {
+    background-color: var(--danger-color);
+}
+
+#strengthBar.medium {
+    background-color: var(--warning-color);
+}
+
+#strengthBar.strong {
+    background-color: var(--success-color);
+}
+
+#strengthText {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+#strengthText.weak {
+    color: var(--danger-color);
+}
+
+#strengthText.medium {
+    color: var(--warning-color);
+}
+
+#strengthText.strong {
+    color: var(--success-color);
+}
+
+/* --- Controls --- */
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.control-group label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+/* --- ✨ New Progress Bar Slider ✨ --- */
+input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: transparent;
+    /* Track is handled by pseudo-elements */
+    cursor: pointer;
+    outline: none;
+}
+
+/* --- Slider Thumb (Chrome, Safari, Opera) --- */
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--bg-primary);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    border: 3px solid var(--primary-accent);
+    margin-top: -6px;
+    /* Center thumb on track */
+}
+
+/* --- Slider Thumb (Firefox) --- */
+input[type=range]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--bg-primary);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    border: 3px solid var(--primary-accent);
+}
+
+/* --- Slider Track (Chrome, Safari, Opera) --- */
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    /* This gradient is the key! */
+    background: linear-gradient(to right,
+            var(--primary-accent) var(--slider-progress),
+            var(--bg-tertiary) var(--slider-progress));
+    transition: var(--transition-theme);
+}
+
+/* --- Slider Track (Firefox) --- */
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    background: linear-gradient(to right,
+            var(--primary-accent) var(--slider-progress),
+            var(--bg-tertiary) var(--slider-progress));
+    transition: var(--transition-theme);
+}
+
+
+/* --- Custom Checkboxes --- */
+.options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-secondary);
+    padding: 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition-theme);
+}
+
+.option:hover {
+    background-color: var(--bg-hover);
+}
+
+.option label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding-left: 0.5rem;
+}
+
+input[type=checkbox] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: var(--bg-primary);
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid var(--text-secondary);
+    border-radius: 0.25em;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+    transition: var(--transition-fast), var(--transition-theme);
+}
+
+input[type=checkbox]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--primary-accent);
+    background-color: var(--primary-accent);
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+input[type=checkbox]:checked {
+    border-color: var(--primary-accent);
+}
+
+input[type=checkbox]:checked::before {
+    transform: scale(1.1);
+}
+
+/* --- New Option Styles --- */
+.option.full-width {
+    grid-column: 1 / -1;
+    /* Span full width of the grid */
+}
+
+/* --- History Section --- */
+.history-section {
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--bg-tertiary);
+    padding-top: 1rem;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: var(--transition-fast);
+}
+
+.history-header:hover {
+    background-color: var(--bg-hover);
+}
+
+.history-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.toggle-icon {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.history-list-container {
+    margin-top: 0.5rem;
+    max-height: 200px;
+    overflow-y: auto;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.history-list-container.hidden {
+    display: none;
+}
+
+#historyList {
+    list-style: none;
+    padding: 0;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--bg-tertiary);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-pwd {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 220px;
+}
+
+.copy-mini-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 4px;
+    border-radius: 4px;
+    transition: var(--transition-fast);
+}
+
+.copy-mini-btn:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--primary-accent);
+}
+
+.clear-btn {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background-color: var(--bg-tertiary);
+    border: none;
+    border-radius: 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: var(--transition-fast);
+}
+
+.clear-btn:hover {
+    background-color: var(--danger-color);
+    color: #fff;
+}
